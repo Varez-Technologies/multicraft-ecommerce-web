@@ -68,12 +68,13 @@ export default function ProductCatalog({
 
         {/* Product Cards Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((prod) => {
+          {filteredProducts.map((prod, index) => {
             const previewPrice = prod.basePrice;
+            const itemKey = prod._id || prod.id || `prod-${index}`;
 
             return (
               <div 
-                key={prod.id}
+                key={itemKey}
                 className="group rounded-2xl bg-[#121212] border border-[#222] hover:border-[#d4af37]/60 transition-all duration-300 flex flex-col justify-between overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
               >
                 {/* Image Container */}
