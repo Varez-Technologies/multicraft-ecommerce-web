@@ -32,7 +32,7 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
       }
     } catch (err) {
       // Fallback local check if backend port is different
-      if (email === 'hello.multicraft@gmail.com' && password === 'multicraft_owner_2026') {
+      if (email === 'hello.multicraft@gmail.com' && password === '@2782multi{s}') {
         localStorage.setItem('multicraft_admin_token', 'temp_verified_owner_token');
         onLoginSuccess();
         onClose();

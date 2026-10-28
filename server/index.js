@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const Product = require('./models/Product');
 const Order = require('./models/Order');
+const Review = require('./models/Review');
 const authMiddleware = require('./middleware/auth');
 
 const app = express();
@@ -307,6 +308,85 @@ app.delete('/api/admin/products/:id', authMiddleware, async (req, res) => {
     res.json({ success: true, message: 'Product removed from catalog' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete product' });
+  }
+});
+
+// =================== PUBLIC REVIEWS API =================== //
+
+// GET all approved reviews
+app.get('/api/reviews', async (req, res) => {
+  try {
+    if (isDbConnected) {
+      const reviews = await Review.find({ approved: true }).sort({ createdAt: -1 });
+      return res.json(reviews);
+    }
+    res.json([]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch reviews' });
+  }
+});
+
+// POST submit new review (public - goes to pending)
+app.post('/api/reviews', async (req, res) => {
+  try {
+    const { name, city, rating, text } = req.body;
+    if (!name || !city || !rating || !text) {
+      return res.status(400).json({ error: 'All fields are required.' });
+    }
+    if (text.length < 10) {
+      return res.status(400).json({ error: 'Review must be at least 10 characters.' });
+    }
+
+    const review = { name, city, rating: Number(rating), text, approved: false };
+
+    if (isDbConnected) {
+      const created = await Review.create(review);
+      return res.status(201).json({ success: true, message: 'Review submitted! It will appear after approval.', review: created });
+    }
+    res.status(201).json({ success: true, message: 'Review submitted! It will appear after approval.' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to submit review' });
+  }
+});
+
+// =================== ADMIN REVIEWS API =================== //
+
+// GET all reviews including pending (admin)
+app.get('/api/admin/reviews', authMiddleware, async (req, res) => {
+  try {
+    if (isDbConnected) {
+      const reviews = await Review.find().sort({ createdAt: -1 });
+      return res.json(reviews);
+    }
+    res.json([]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch reviews' });
+  }
+});
+
+// PATCH approve/reject review (admin)
+app.patch('/api/admin/reviews/:id', authMiddleware, async (req, res) => {
+  try {
+    const { approved } = req.body;
+    if (isDbConnected) {
+      const updated = await Review.findByIdAndUpdate(req.params.id, { approved }, { new: true });
+      return res.json(updated);
+    }
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update review' });
+  }
+});
+
+// DELETE review (admin)
+app.delete('/api/admin/reviews/:id', authMiddleware, async (req, res) => {
+  try {
+    if (isDbConnected) {
+      await Review.findByIdAndDelete(req.params.id);
+    }
+    res.json({ success: true, message: 'Review deleted.' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete review' });
   }
 });
 

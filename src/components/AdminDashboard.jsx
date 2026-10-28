@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Package, Plus, Trash2, ArrowLeft, LogOut, RefreshCw, CheckCircle, Clock } from 'lucide-react';
+import { Package, Plus, Trash2, ArrowLeft, LogOut, RefreshCw, CheckCircle, Star, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { initialProducts, categoriesList } from '../data/products';
 import { NOTIFICATION_EMAIL } from '../utils/whatsapp';
 
 export default function AdminDashboard({ onBackToStore, products, onUpdateProducts }) {
   const [activeTab, setActiveTab] = useState('orders');
   const [orders, setOrders] = useState([]);
+  const [pendingReviews, setPendingReviews] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // New Product form state
@@ -41,7 +42,43 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
 
   useEffect(() => {
     fetchBackendOrders();
+    fetchPendingReviews();
   }, []);
+
+  const fetchPendingReviews = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/admin/reviews', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setPendingReviews(data);
+      }
+    } catch { setPendingReviews([]); }
+  };
+
+  const handleApproveReview = async (reviewId, approved) => {
+    try {
+      await fetch(`http://localhost:5000/api/admin/reviews/${reviewId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ approved })
+      });
+      fetchPendingReviews();
+    } catch (e) { console.warn(e); }
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    if (confirm("Delete this review?")) {
+      try {
+        await fetch(`http://localhost:5000/api/admin/reviews/${reviewId}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        fetchPendingReviews();
+      } catch (e) { console.warn(e); }
+    }
+  };
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
@@ -184,6 +221,21 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
             }`}
           >
             Catalog ({products.length})
+          </button>
+          <button 
+            onClick={() => { setActiveTab('reviews'); fetchPendingReviews(); }}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer relative ${
+              activeTab === 'reviews' 
+                ? 'bg-[#d4af37] text-black shadow' 
+                : 'bg-[#181818] text-neutral-400 hover:text-white'
+            }`}
+          >
+            Reviews
+            {pendingReviews.filter(r => !r.approved).length > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+                {pendingReviews.filter(r => !r.approved).length}
+              </span>
+            )}
           </button>
           <button 
             onClick={handleLogout}
@@ -426,6 +478,85 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
               </div>
             </div>
 
+          </div>
+        )}
+
+        {/* TAB 3: REVIEWS MANAGER */}
+        {activeTab === 'reviews' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-white">Customer Reviews</h2>
+                <p className="text-xs text-neutral-400">Approve karo toh website par dikhega, reject karo toh hidden rahega</p>
+              </div>
+              <button 
+                onClick={fetchPendingReviews}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#1a1a1a] border border-[#333] text-xs text-neutral-300 hover:text-white cursor-pointer"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>Refresh</span>
+              </button>
+            </div>
+
+            {pendingReviews.length === 0 ? (
+              <div className="p-12 text-center rounded-2xl bg-[#121212] border border-[#222]">
+                <Star className="w-12 h-12 text-neutral-600 mx-auto mb-3" />
+                <h3 className="text-base font-bold text-white">Koi review nahi abhi tak</h3>
+                <p className="text-xs text-neutral-400 mt-1">Jab customer "Rate Us" form fill karega, yahan dikhega.</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {pendingReviews.map((rev) => (
+                  <div key={rev._id} className={`p-5 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${rev.approved ? 'bg-[#0f1a0f] border-green-800/40' : 'bg-[#121212] border-[#262626]'}`}>
+                    <div className="space-y-2 flex-1">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <span className="text-sm font-black text-white">{rev.name}</span>
+                        <span className="text-xs text-neutral-400">{rev.city}</span>
+                        <div className="flex items-center gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className={`w-3.5 h-3.5 ${i < rev.rating ? 'fill-[#d4af37] text-[#d4af37]' : 'text-neutral-600'}`} />
+                          ))}
+                        </div>
+                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${rev.approved ? 'bg-green-900/60 text-green-300 border border-green-700' : 'bg-amber-900/60 text-amber-300 border border-amber-700'}`}>
+                          {rev.approved ? 'Live on Website' : 'Pending Approval'}
+                        </span>
+                        <span className="text-[10px] text-neutral-500">
+                          {new Date(rev.createdAt).toLocaleDateString('en-PK')}
+                        </span>
+                      </div>
+                      <p className="text-xs text-neutral-300 leading-relaxed italic">"{rev.text}"</p>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      {rev.approved ? (
+                        <button
+                          onClick={() => handleApproveReview(rev._id, false)}
+                          className="px-3 py-1.5 rounded-lg bg-amber-900/40 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold flex items-center gap-1 cursor-pointer"
+                        >
+                          <ThumbsDown className="w-3.5 h-3.5" />
+                          <span>Hide</span>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleApproveReview(rev._id, true)}
+                          className="px-3 py-1.5 rounded-lg bg-green-900/40 hover:bg-green-900 border border-green-700 text-green-300 text-xs font-bold flex items-center gap-1 cursor-pointer"
+                        >
+                          <ThumbsUp className="w-3.5 h-3.5" />
+                          <span>Approve</span>
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleDeleteReview(rev._id)}
+                        className="p-1.5 rounded-lg bg-[#222] hover:bg-red-900/40 text-neutral-400 hover:text-red-400 cursor-pointer"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
