@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, ShoppingBag, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 import { createWhatsAppOrderLink, NOTIFICATION_EMAIL } from '../utils/whatsapp';
 import { sendOrderEmail } from '../utils/email';
+import { API_BASE_URL } from '../utils/api';
 
 export default function CartDrawer({ 
   isOpen, 
@@ -55,7 +56,29 @@ export default function CartDrawer({
       status: 'Pending'
     };
 
-    // 1. Save to local storage for Admin Panel
+    // 1. Post order to Backend API (MongoDB Atlas)
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer: formData,
+          items: cartItems,
+          subtotal,
+          deliveryFee,
+          total: grandTotal
+        })
+      });
+      const data = await response.json();
+      if (data && data.order) {
+        newOrder.orderNumber = data.order.orderNumber;
+        newOrder._id = data.order._id;
+      }
+    } catch (apiErr) {
+      console.warn("Backend order save fallback to local:", apiErr);
+    }
+
+    // 2. Save to local storage for Admin Panel fallback
     try {
       const existing = JSON.parse(localStorage.getItem('multicraft_orders') || '[]');
       existing.unshift(newOrder);
@@ -64,7 +87,7 @@ export default function CartDrawer({
       console.warn("Storage warning:", e);
     }
 
-    // 2. Send email notification to hello.multicraft@gmail.com
+    // 3. Send email notification to hello.multicraft@gmail.com
     await sendOrderEmail(newOrder);
 
     setIsSubmitting(false);

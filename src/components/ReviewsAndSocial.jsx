@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Sparkles, Share2, Star, Send, CheckCircle2, MessageSquare } from 'lucide-react';
+import { API_BASE_URL } from '../utils/api';
 
 export default function ReviewsAndSocial() {
   const [reviews, setReviews] = useState([]);
@@ -10,7 +11,7 @@ export default function ReviewsAndSocial() {
 
   // Fetch approved reviews
   useEffect(() => {
-    fetch('http://localhost:5000/api/reviews')
+    fetch(`${API_BASE_URL}/api/reviews`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setReviews(data);
@@ -28,7 +29,7 @@ export default function ReviewsAndSocial() {
     setErrorMsg('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/reviews', {
+      const res = await fetch(`${API_BASE_URL}/api/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

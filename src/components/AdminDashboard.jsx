@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Package, Plus, Trash2, ArrowLeft, LogOut, RefreshCw, CheckCircle, Star, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { initialProducts, categoriesList } from '../data/products';
 import { NOTIFICATION_EMAIL } from '../utils/whatsapp';
+import { API_BASE_URL } from '../utils/api';
 
 export default function AdminDashboard({ onBackToStore, products, onUpdateProducts }) {
   const [activeTab, setActiveTab] = useState('orders');
@@ -21,7 +22,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
   const fetchBackendOrders = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/api/admin/orders', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/orders`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -47,7 +48,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
 
   const fetchPendingReviews = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/admin/reviews', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/reviews`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -59,7 +60,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
 
   const handleApproveReview = async (reviewId, approved) => {
     try {
-      await fetch(`http://localhost:5000/api/admin/reviews/${reviewId}`, {
+      await fetch(`${API_BASE_URL}/api/admin/reviews/${reviewId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ approved })
@@ -71,7 +72,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
   const handleDeleteReview = async (reviewId) => {
     if (confirm("Delete this review?")) {
       try {
-        await fetch(`http://localhost:5000/api/admin/reviews/${reviewId}`, {
+        await fetch(`${API_BASE_URL}/api/admin/reviews/${reviewId}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -82,7 +83,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
-      await fetch(`http://localhost:5000/api/admin/orders/${orderId}`, {
+      await fetch(`${API_BASE_URL}/api/admin/orders/${orderId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
   const handleDeleteOrder = async (orderId) => {
     if (confirm("Are you sure you want to delete this order?")) {
       try {
-        await fetch(`http://localhost:5000/api/admin/orders/${orderId}`, {
+        await fetch(`${API_BASE_URL}/api/admin/orders/${orderId}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -131,7 +132,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
     };
 
     try {
-      const res = await fetch('http://localhost:5000/api/admin/products', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +159,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
   const handleDeleteProduct = async (prodId) => {
     if (confirm("Are you sure you want to remove this product?")) {
       try {
-        await fetch(`http://localhost:5000/api/admin/products/${prodId}`, {
+        await fetch(`${API_BASE_URL}/api/admin/products/${prodId}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });

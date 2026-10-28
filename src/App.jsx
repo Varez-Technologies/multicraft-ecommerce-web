@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import AdminDashboard from './components/AdminDashboard';
 import AdminLoginModal from './components/AdminLoginModal';
 import { initialProducts } from './data/products';
+import { API_BASE_URL } from './utils/api';
 
 export default function App() {
   const [currentView, setCurrentView] = useState('home'); // 'home' | 'admin'
@@ -33,7 +34,7 @@ export default function App() {
 
   // Fetch products from backend API
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch(`${API_BASE_URL}/api/products`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {

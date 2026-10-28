@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Lock, Mail, KeyRound, ShieldAlert, ArrowLeft, Sparkles } from 'lucide-react';
+import { API_BASE_URL } from '../utils/api';
 
 export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:5000/api/admin/login', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
