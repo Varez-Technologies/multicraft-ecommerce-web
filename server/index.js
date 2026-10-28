@@ -391,6 +391,10 @@ app.delete('/api/admin/reviews/:id', authMiddleware, async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`🚀 MultiCraft Backend Server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 MultiCraft Backend Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
