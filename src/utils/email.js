@@ -7,7 +7,7 @@ import { NOTIFICATION_EMAIL, STORE_NAME } from './whatsapp';
 export async function sendOrderEmail(order) {
   try {
     const payload = {
-      access_key: "c2c8f8d6-multicraft-free", // standard placeholder or direct post
+      access_key: "6de9a276-54f6-4b65-a5d9-e3f428b87a40",
       to_email: NOTIFICATION_EMAIL,
       subject: `🚨 New Order #${order.id} - ${order.customer.name} (Rs. ${order.total.toLocaleString()})`,
       from_name: `${STORE_NAME} Store`,
