@@ -104,29 +104,29 @@ let memoryProducts = [
 let memoryOrders = [];
 let isDbConnected = false;
 
-// Connect MongoDB with graceful fallback
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/multicraft', {
-  serverSelectionTimeoutMS: 3000
-})
-.then(async () => {
-  isDbConnected = true;
-  console.log('✅ Connected successfully to MongoDB Database!');
-  
-  // Seed initial products if collection is empty
-  const count = await Product.countDocuments();
-  if (count === 0) {
-    const cleaned = memoryProducts.map(p => {
-      const { _id, ...rest } = p;
-      return rest;
-    });
-    await Product.insertMany(cleaned);
-    console.log('🌱 Seeded initial products into MongoDB database.');
+// Middleware to ensure MongoDB connection in serverless (Vercel) & standard environments
+app.use(async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
+    try {
+      await mongoose.connect(process.env.MONGODB_URI, {
+        serverSelectionTimeoutMS: 5000
+      });
+      isDbConnected = true;
+    } catch (err) {
+      console.warn('⚠️ Serverless DB connect attempt:', err.message);
+    }
+  } else if (mongoose.connection.readyState === 1) {
+    isDbConnected = true;
   }
-})
-.catch((err) => {
-  isDbConnected = false;
-  console.log('⚠️ MongoDB not detected locally (will use cloud URI when provided). Running with secure memory layer for now.');
+  next();
 });
+
+// Initial startup connection
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
+    .then(() => { isDbConnected = true; })
+    .catch(() => {});
+}
 
 // =================== PUBLIC API ROUTES =================== //
 
