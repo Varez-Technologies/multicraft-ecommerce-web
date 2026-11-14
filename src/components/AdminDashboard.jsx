@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Package, Plus, Trash2, ArrowLeft, LogOut, RefreshCw, CheckCircle, Star, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Package, Plus, Trash2, ArrowLeft, LogOut, RefreshCw, CheckCircle, Star, ThumbsUp, ThumbsDown, Image as ImageIcon, UploadCloud } from 'lucide-react';
 import { initialProducts, categoriesList } from '../data/products';
 import { NOTIFICATION_EMAIL } from '../utils/whatsapp';
 import { API_BASE_URL } from '../utils/api';
@@ -16,6 +16,56 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
   const [newPrice, setNewPrice] = useState('');
   const [newImage, setNewImage] = useState('/products/art_1.jpg');
   const [newDesc, setNewDesc] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+
+  // Compress & convert mobile gallery image to Base64 data URL
+  const handleImageFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert("Please select a valid image file (JPG, PNG, WEBP).");
+      return;
+    }
+
+    setIsUploading(true);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        // Resize to optimal dimensions (max 900px) and compress to keep DB light & fast
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 900;
+        const MAX_HEIGHT = 1200;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert to lightweight JPEG data URL
+        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85);
+        setNewImage(compressedBase64);
+        setIsUploading(false);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
 
   const token = localStorage.getItem('multicraft_admin_token');
 
@@ -413,14 +463,55 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
                 </div>
 
                 <div>
-                  <label className="block text-neutral-400 font-bold mb-1">Image Path</label>
-                  <input 
-                    type="text" 
-                    value={newImage}
-                    onChange={(e) => setNewImage(e.target.value)}
-                    placeholder="/products/art_1.jpg"
-                    className="w-full p-2.5 rounded-xl bg-[#1a1a1a] border border-[#333] text-white focus:outline-none focus:border-[#d4af37]"
-                  />
+                  <label className="block text-neutral-400 font-bold mb-1">Product Image (Mobile Gallery / Camera)</label>
+                  
+                  {/* File Upload Button */}
+                  <label className="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-[#333] hover:border-[#d4af37] rounded-xl cursor-pointer bg-[#161616] transition-all group">
+                    <div className="flex flex-col items-center justify-center text-center">
+                      <UploadCloud className="w-6 h-6 text-neutral-400 group-hover:text-[#d4af37] mb-1 transition-colors" />
+                      <span className="text-xs font-bold text-neutral-200 group-hover:text-[#d4af37]">
+                        {isUploading ? "Processing Image..." : "Tap to Choose from Gallery"}
+                      </span>
+                      <span className="text-[10px] text-neutral-500 mt-0.5">JPG, PNG, WebP (Auto-optimized)</span>
+                    </div>
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={handleImageFileChange} 
+                      className="hidden" 
+                    />
+                  </label>
+
+                  {/* Thumbnail Preview */}
+                  {newImage && (
+                    <div className="mt-2.5 p-2 rounded-xl bg-[#181818] border border-[#2a2a2a] flex items-center gap-3">
+                      <img 
+                        src={newImage} 
+                        alt="Preview" 
+                        className="w-12 h-14 object-cover rounded-lg border border-[#333] shrink-0" 
+                      />
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[10px] text-green-400 font-bold flex items-center gap-1">
+                          ✓ Image Ready
+                        </span>
+                        <p className="text-[10px] text-neutral-400 truncate">
+                          {newImage.startsWith('data:') ? 'Custom Gallery Photo Loaded' : newImage}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Optional manual URL / path toggle */}
+                  <div className="mt-2">
+                    <span className="text-[10px] text-neutral-500 block mb-1">Or paste direct image URL (optional):</span>
+                    <input 
+                      type="text" 
+                      value={newImage.startsWith('data:') ? '' : newImage}
+                      onChange={(e) => setNewImage(e.target.value)}
+                      placeholder="/products/art_1.jpg or https://..."
+                      className="w-full p-2 rounded-lg bg-[#141414] border border-[#282828] text-white text-[11px] focus:outline-none focus:border-[#d4af37]"
+                    />
+                  </div>
                 </div>
 
                 <div>
