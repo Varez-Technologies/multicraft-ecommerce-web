@@ -17,6 +17,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
   const [newImage, setNewImage] = useState('/products/art_1.jpg');
   const [newDesc, setNewDesc] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [newBadge, setNewBadge] = useState('New Arrival');
 
   // Compress & convert mobile gallery image to Base64 data URL
   const handleImageFileChange = (e) => {
@@ -33,7 +34,6 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
     reader.onload = (event) => {
       const img = new Image();
       img.onload = () => {
-        // Resize to optimal dimensions (max 900px) and compress to keep DB light & fast
         const canvas = document.createElement('canvas');
         const MAX_WIDTH = 900;
         const MAX_HEIGHT = 1200;
@@ -41,24 +41,16 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
         let height = img.height;
 
         if (width > height) {
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width;
-            width = MAX_WIDTH;
-          }
+          if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
         } else {
-          if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height;
-            height = MAX_HEIGHT;
-          }
+          if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
         }
 
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-
-        // Convert to lightweight JPEG data URL
-        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85);
+        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.82);
         setNewImage(compressedBase64);
         setIsUploading(false);
       };
@@ -204,6 +196,8 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
     setNewTitle('');
     setNewPrice('');
     setNewDesc('');
+    setNewImage('/products/art_1.jpg');
+    setNewBadge('New Arrival');
   };
 
   const handleDeleteProduct = async (prodId) => {

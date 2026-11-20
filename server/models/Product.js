@@ -5,7 +5,7 @@ const ProductSchema = new mongoose.Schema({
   category: { 
     type: String, 
     required: true,
-    enum: ['Motivational', 'Automotive', 'Gaming', 'Urdu Poetry'] 
+    trim: true 
   },
   basePrice: { type: Number, required: true },
   image: { type: String, required: true },
