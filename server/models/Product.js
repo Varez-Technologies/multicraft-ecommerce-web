@@ -8,6 +8,7 @@ const ProductSchema = new mongoose.Schema({
     trim: true 
   },
   basePrice: { type: Number, required: true },
+  a3Price: { type: Number },
   image: { type: String, required: true },
   badge: { type: String, default: 'New' },
   featured: { type: Boolean, default: false },

@@ -1,18 +1,7 @@
 import React from 'react';
-import { Flame, Car, Gamepad2, Feather, Sparkles } from 'lucide-react';
+import { Flame, Car, Gamepad2, Feather, Moon, Palette, Sparkles } from 'lucide-react';
 
 const categories = [
-  {
-    id: "Motivational",
-    title: "Motivational",
-    tagline: "Dream • Plan • Do • Repeat",
-    desc: "Mindset typography and modern ambition art for workspaces and bedrooms.",
-    icon: Flame,
-    color: "from-amber-500/20 to-orange-500/5",
-    accent: "text-amber-400",
-    border: "border-amber-500/30",
-    sampleImg: "/products/art_2.jpg"
-  },
   {
     id: "Automotive",
     title: "Automotive",
@@ -22,29 +11,62 @@ const categories = [
     color: "from-red-500/20 to-rose-500/5",
     accent: "text-red-400",
     border: "border-red-500/30",
-    sampleImg: "/products/art_1.jpg"
+    sampleImg: "/products/automotive_cayman_set_of_3.jpeg"
+  },
+  {
+    id: "Islamic",
+    title: "Islamic Calligraphy",
+    tagline: "Ayat • Sacred • Barakah",
+    desc: "Spiritual Quranic verses and royal Islamic typography with gold textured finishes.",
+    icon: Moon,
+    color: "from-emerald-500/20 to-teal-500/5",
+    accent: "text-emerald-400",
+    border: "border-emerald-500/30",
+    sampleImg: "/products/islamic_tawakkal_sabr_shukr_set_of_3.jpeg"
+  },
+  {
+    id: "Motivational",
+    title: "Motivational",
+    tagline: "Dream • Plan • Do • Repeat",
+    desc: "Mindset typography and modern ambition art for workspaces and bedrooms.",
+    icon: Flame,
+    color: "from-amber-500/20 to-orange-500/5",
+    accent: "text-amber-400",
+    border: "border-amber-500/30",
+    sampleImg: "/products/motivational_discipline.jpeg"
   },
   {
     id: "Gaming",
-    title: "Gaming",
+    title: "Gaming & Battlestations",
     tagline: "Level Up Your Sanctum",
-    desc: "Cyberpunk visuals, neon glitched icons, and retro controllers for true gamers.",
+    desc: "Cyberpunk visuals, neon glitched icons, and trading charts for modern setups.",
     icon: Gamepad2,
     color: "from-cyan-500/20 to-purple-500/5",
     accent: "text-cyan-400",
     border: "border-cyan-500/30",
-    sampleImg: "/products/art_4.jpg"
+    sampleImg: "/products/gaming_cinematic_black_gold.png"
+  },
+  {
+    id: "Calligraphy",
+    title: "Modern Calligraphy",
+    tagline: "Abstract • Strokes • Elegance",
+    desc: "Contemporary abstract strokes and minimalist art crafted for luxurious modern spaces.",
+    icon: Palette,
+    color: "from-purple-500/20 to-pink-500/5",
+    accent: "text-purple-400",
+    border: "border-purple-500/30",
+    sampleImg: "/products/calligraphy_abstract_art.jpeg"
   },
   {
     id: "Urdu Poetry",
     title: "Urdu Poetry",
-    tagline: "Allama Iqbal • Ghalib • Jaun Elia",
-    desc: "Timeless poetic verses with intricate Nastaliq calligraphy and gold accents.",
+    tagline: "Timeless Verses & Soul",
+    desc: "Poetic verses with intricate Nastaliq calligraphy and gold accents.",
     icon: Feather,
-    color: "from-emerald-500/20 to-teal-500/5",
-    accent: "text-emerald-400",
-    border: "border-emerald-500/30",
-    sampleImg: "/products/art_3.jpg"
+    color: "from-yellow-500/20 to-amber-500/5",
+    accent: "text-yellow-400",
+    border: "border-yellow-500/30",
+    sampleImg: "/products/urdu_poetry_illuminated_floral.png"
   }
 ];
 
@@ -67,8 +89,8 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
           </p>
         </div>
 
-        {/* Categories 4-Card Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Categories 6-Card Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat) => {
             const Icon = cat.icon;
             const isSelected = activeCategory === cat.id;
@@ -83,52 +105,52 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
                 }}
                 className={`group cursor-pointer relative rounded-2xl overflow-hidden bg-[#141414] border transition-all duration-300 p-5 flex flex-col justify-between hover:scale-[1.02] ${
                   isSelected 
-                    ? 'border-[#d4af37] shadow-[0_0_20px_rgba(212,175,55,0.25)] ring-1 ring-[#d4af37]' 
-                    : 'border-[#262626] hover:border-[#444]'
+                    ? 'border-[#d4af37] shadow-[0_0_25px_rgba(212,175,55,0.25)] ring-1 ring-[#d4af37]' 
+                    : `${cat.border} hover:border-[#d4af37]/60 hover:shadow-xl`
                 }`}
               >
-                {/* Background Art Sneak Peek */}
-                <div className="relative w-full h-44 rounded-xl overflow-hidden mb-4 bg-black">
-                  <img 
-                    src={cat.sampleImg} 
-                    alt={cat.title} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100"
-                    onError={(e) => {
-                      e.target.src = "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                {/* Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-40 group-hover:opacity-70 transition-opacity`} />
+                
+                {/* Top Row: Icon + Sample Image preview */}
+                <div className="relative z-10 flex items-start justify-between mb-4">
+                  <div className={`w-12 h-12 rounded-xl bg-[#1c1c1c] border border-white/10 flex items-center justify-center ${cat.accent} shadow`}>
+                    <Icon className="w-6 h-6" />
+                  </div>
                   
-                  {/* Category Pill Icon */}
-                  <div className="absolute top-3 left-3 bg-[#0a0a0a]/80 backdrop-blur-md px-2.5 py-1.5 rounded-lg border border-[#333] flex items-center gap-1.5">
-                    <Icon className={`w-4 h-4 ${cat.accent}`} />
-                    <span className="text-xs font-bold text-white">{cat.title}</span>
+                  {/* Miniature frame preview */}
+                  <div className="w-14 h-16 rounded-lg overflow-hidden border border-[#333] shadow-md transform rotate-3 group-hover:rotate-0 transition-transform">
+                    <img 
+                      src={cat.sampleImg} 
+                      alt={cat.title} 
+                      className="w-full h-full object-cover" 
+                    />
                   </div>
                 </div>
 
-                {/* Details */}
-                <div>
-                  <h3 className="text-lg font-bold text-white group-hover:text-[#d4af37] transition-colors">
-                    {cat.title}
-                  </h3>
-                  <p className="text-xs text-[#d4af37] font-medium mt-0.5">
+                {/* Text Content */}
+                <div className="relative z-10 mt-2">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
                     {cat.tagline}
-                  </p>
-                  <p className="text-xs text-neutral-400 mt-2 line-clamp-2 leading-relaxed">
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2 flex items-center justify-between">
+                    <span>{cat.title}</span>
+                    <span className="text-xs text-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity">
+                      View →
+                    </span>
+                  </h3>
+                  <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
                     {cat.desc}
                   </p>
                 </div>
 
-                {/* Action button */}
-                <div className="mt-4 pt-3 border-t border-[#222] flex items-center justify-between text-xs font-semibold">
-                  <span className={isSelected ? 'text-[#d4af37]' : 'text-neutral-400 group-hover:text-white'}>
-                    {isSelected ? 'Currently Viewing' : 'View Designs'}
-                  </span>
-                  <span className="text-[#d4af37] group-hover:translate-x-1 transition-transform">
-                    →
-                  </span>
-                </div>
-
+                {/* Active Indicator Pill */}
+                {isSelected && (
+                  <div className="relative z-10 mt-3 pt-3 border-t border-white/10 flex items-center gap-1.5 text-xs text-[#d4af37] font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
+                    <span>Currently viewing</span>
+                  </div>
+                )}
               </div>
             );
           })}

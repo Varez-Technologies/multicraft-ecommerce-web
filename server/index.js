@@ -20,86 +20,27 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // In-memory fallback if MongoDB connection fails initially
 let memoryProducts = [
-  {
-    _id: "1",
-    title: "Porsche 911 GT3 RS Neon Track",
-    category: "Automotive",
-    basePrice: 1999,
-    image: "/products/art_1.jpg",
-    badge: "Best Seller",
-    featured: true,
-    description: "High-definition motorsport aesthetic featuring the iconic Porsche 911 in dynamic track lighting."
-  },
-  {
-    _id: "2",
-    title: "Dream Plan Do Repeat - Minimalist Hustle",
-    category: "Motivational",
-    basePrice: 1799,
-    image: "/products/art_2.jpg",
-    badge: "Trending",
-    featured: true,
-    description: "Inspiring clean typographic art engineered to keep you focused on your ambition every single day."
-  },
-  {
-    _id: "3",
-    title: "Mirza Ghalib - Ishq Par Zor Nahin",
-    category: "Urdu Poetry",
-    basePrice: 2199,
-    image: "/products/art_3.jpg",
-    badge: "Heritage",
-    featured: true,
-    description: "Exquisite Urdu calligraphy capturing timeless poetic expression. Crafted on textured fine-art canvas."
-  },
-  {
-    _id: "4",
-    title: "Cyberpunk Gamer Battlestation Glitch",
-    category: "Gaming",
-    basePrice: 1899,
-    image: "/products/art_4.jpg",
-    badge: "New Drop",
-    featured: true,
-    description: "Vibrant neon cyberpunk aesthetic with futuristic glowing elements for the ultimate modern gaming setup."
-  },
-  {
-    _id: "5",
-    title: "G-Wagon Matte Black Powerhouse",
-    category: "Automotive",
-    basePrice: 2299,
-    image: "/products/art_5.jpg",
-    badge: "Popular",
-    featured: true,
-    description: "Bold monochromatic aesthetic showcasing the raw luxury and dominance of the Mercedes-AMG G63."
-  },
-  {
-    _id: "6",
-    title: "Good Things Take Time - Golden Hour",
-    category: "Motivational",
-    basePrice: 1699,
-    image: "/products/art_6.jpg",
-    badge: "Classic",
-    featured: false,
-    description: "Subtle reminder of patience and mastery. Warm tones and modern layout designed for mindful living."
-  },
-  {
-    _id: "7",
-    title: "Jaun Elia - Shayad Khamoshi Mein",
-    category: "Urdu Poetry",
-    basePrice: 2099,
-    image: "/products/art_7.jpg",
-    badge: "Exclusive",
-    featured: true,
-    description: "Deep, soulful typography honoring the legendary poet Jaun Elia in luxury gold foil and black canvas."
-  },
-  {
-    _id: "8",
-    title: "Retro Arcade 1989 Neon Synthwave",
-    category: "Gaming",
-    basePrice: 1999,
-    image: "/products/art_8.jpg",
-    badge: "Trending",
-    featured: false,
-    description: "Nostalgic 80s arcade vibe with glowing purple and cyan accents, perfect for game rooms and workspaces."
-  }
+  { _id: "1", title: "Porsche Cayman 718 (Set of 3)", category: "Automotive", basePrice: 3700, a3Price: 4500, image: "/products/automotive_cayman_set_of_3.jpeg", badge: "Set of 3", featured: true },
+  { _id: "2", title: "Dream Drive Supercar Aesthetic", category: "Automotive", basePrice: 1600, a3Price: 1900, image: "/products/automotive_dream_drive.jpeg", badge: "Trending", featured: true },
+  { _id: "3", title: "Ducati Superbike Panigale Power", category: "Automotive", basePrice: 1600, a3Price: 1900, image: "/products/automotive_ducati.jpeg", badge: "Popular", featured: false },
+  { _id: "4", title: "Porsche 911 Heritage Classic", category: "Automotive", basePrice: 1500, a3Price: 1800, image: "/products/automotive_porsche_911_classic.jpeg", badge: "Best Seller", featured: true },
+  { _id: "5", title: "Porsche 911 Midnight Track Edition", category: "Automotive", basePrice: 1600, a3Price: 1900, image: "/products/automotive_porsche_911_midnight.jpeg", badge: "Hot Drop", featured: false },
+  { _id: "6", title: "Abstract Luxury Calligraphy (Set of 3)", category: "Calligraphy", basePrice: 3600, a3Price: 4300, image: "/products/calligraphy_abstract_art.jpeg", badge: "Set of 3", featured: true },
+  { _id: "7", title: "Boho Minimalist Calligraphy", category: "Calligraphy", basePrice: 1600, a3Price: 1800, image: "/products/calligraphy_boho_minimalist.jpeg", badge: "New Arrival", featured: false },
+  { _id: "8", title: "Cinematic Black & Gold Gaming Gallery (Set)", category: "Gaming", basePrice: 3800, a3Price: 4700, image: "/products/gaming_cinematic_black_gold.png", badge: "Gallery Set", featured: true },
+  { _id: "9", title: "Level Up Modern Gamer Neon", category: "Gaming", basePrice: 1500, a3Price: 1800, image: "/products/gaming_level_up.jpeg", badge: "Popular", featured: false },
+  { _id: "10", title: "Luxury Trading Charts Living Room Wall Art", category: "Gaming", basePrice: 3700, a3Price: 4800, image: "/products/gaming_luxury_trading_charts.png", badge: "Trader Wall", featured: true },
+  { _id: "11", title: "XOXO Game On (Set of 3)", category: "Gaming", basePrice: 3700, a3Price: 4400, image: "/products/gaming_xoxo_game_on_set_of_3.jpeg", badge: "Set of 3", featured: false },
+  { _id: "12", title: "Luxurious MultiCraft Islamic Calligraphy", category: "Islamic", basePrice: 3600, a3Price: 4200, image: "/products/islamic_luxurious_calligraphy.png", badge: "Masterpiece", featured: true },
+  { _id: "13", title: "Qurani Ayat Sacred Wall Art", category: "Islamic", basePrice: 1500, a3Price: 1800, image: "/products/islamic_qurani_ayat.jpeg", badge: "Best Seller", featured: true },
+  { _id: "14", title: "Tawakkal • Sabr • Shukr (Set of 3)", category: "Islamic", basePrice: 3600, a3Price: 4200, image: "/products/islamic_tawakkal_sabr_shukr_set_of_3.jpeg", badge: "Set of 3", featured: true },
+  { _id: "15", title: "Discipline Over Motivation", category: "Motivational", basePrice: 1500, a3Price: 1800, image: "/products/motivational_discipline.jpeg", badge: "Mindset", featured: true },
+  { _id: "16", title: "Dream, Believe, Achieve Wall Art", category: "Motivational", basePrice: 1700, a3Price: 1900, image: "/products/motivational_dream_believe_achieve.png", badge: "Trending", featured: false },
+  { _id: "17", title: "Never Give Up - Grit & Glory", category: "Motivational", basePrice: 1800, a3Price: 2000, image: "/products/motivational_never_give_up.jpeg", badge: "Best Seller", featured: true },
+  { _id: "18", title: "No Risk, No Story", category: "Motivational", basePrice: 1500, a3Price: 1800, image: "/products/motivational_no_risk_no_story.png", badge: "Hustle", featured: false },
+  { _id: "19", title: "Cristiano Ronaldo - Believe Greatness", category: "Motivational", basePrice: 1600, a3Price: 1900, image: "/products/motivational_ronaldo_believe.jpeg", badge: "Iconic", featured: true },
+  { _id: "20", title: "Illuminated Floral Urdu Wall Art", category: "Urdu Poetry", basePrice: 1700, a3Price: 1900, image: "/products/urdu_poetry_illuminated_floral.png", badge: "Heritage", featured: true },
+  { _id: "21", title: "Premium Gold Urdu Calligraphy Wall Art", category: "Urdu Poetry", basePrice: 1500, a3Price: 1800, image: "/products/urdu_poetry_premium_gold_calligraphy.png", badge: "Classic", featured: true }
 ];
 
 let memoryOrders = [];

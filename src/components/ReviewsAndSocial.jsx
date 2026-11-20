@@ -286,7 +286,12 @@ export default function ReviewsAndSocial() {
 
           {/* 4 Social Art Thumbnails */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {['art_1.jpg', 'art_2.jpg', 'art_3.jpg', 'art_4.jpg'].map((img, idx) => (
+            {[
+              'automotive_cayman_set_of_3.jpeg',
+              'islamic_tawakkal_sabr_shukr_set_of_3.jpeg',
+              'gaming_cinematic_black_gold.png',
+              'calligraphy_abstract_art.jpeg'
+            ].map((img, idx) => (
               <div
                 key={idx}
                 className="relative aspect-square rounded-xl overflow-hidden group bg-black border border-[#262626]"

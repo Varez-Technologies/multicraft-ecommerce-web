@@ -21,12 +21,19 @@ export default function ProductCatalog({
 
   const handleOpenCustomize = (prod) => {
     setSelectedProduct(prod);
-    setActiveSize(sizeOptions[1]);
+    setActiveSize(sizeOptions[0]);
     setActiveFrame(frameOptions[0]);
   };
 
-  const calculatePrice = (basePrice, size, frame) => {
-    return basePrice + (size?.priceDelta || 0) + (frame?.priceDelta || 0);
+  const getSizeDelta = (sz, prod = selectedProduct) => {
+    if (sz?.id === 'a3' && prod?.a3Price && prod?.basePrice) {
+      return prod.a3Price - prod.basePrice;
+    }
+    return sz?.priceDelta || 0;
+  };
+
+  const calculatePrice = (basePrice, size, frame, prod = selectedProduct) => {
+    return basePrice + getSizeDelta(size, prod) + (frame?.priceDelta || 0);
   };
 
   return (
@@ -234,7 +241,7 @@ export default function ProductCatalog({
                         <div className="text-[10px] text-neutral-400 flex items-center justify-between mt-1">
                           <span>{sz.tag}</span>
                           <span className="text-[#d4af37]">
-                            {sz.priceDelta === 0 ? "Base" : `+Rs. ${sz.priceDelta}`}
+                            {getSizeDelta(sz) === 0 ? "Base" : `+Rs. ${getSizeDelta(sz)}`}
                           </span>
                         </div>
                       </button>

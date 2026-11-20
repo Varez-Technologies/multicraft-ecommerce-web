@@ -14,7 +14,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
   const [newTitle, setNewTitle] = useState('');
   const [newCategory, setNewCategory] = useState('Motivational');
   const [newPrice, setNewPrice] = useState('');
-  const [newImage, setNewImage] = useState('/products/art_1.jpg');
+  const [newImage, setNewImage] = useState('/products/automotive_porsche_911_classic.jpeg');
   const [newDesc, setNewDesc] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [newBadge, setNewBadge] = useState('New Arrival');
@@ -167,7 +167,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
       title: newTitle,
       category: newCategory,
       basePrice: parseInt(newPrice),
-      image: newImage || '/products/art_1.jpg',
+      image: newImage || '/products/automotive_porsche_911_classic.jpeg',
       badge: 'New Arrival',
       featured: true,
       description: newDesc || 'Handcrafted fine-art canvas frame.'
@@ -196,7 +196,7 @@ export default function AdminDashboard({ onBackToStore, products, onUpdateProduc
     setNewTitle('');
     setNewPrice('');
     setNewDesc('');
-    setNewImage('/products/art_1.jpg');
+    setNewImage('/products/automotive_porsche_911_classic.jpeg');
     setNewBadge('New Arrival');
   };
 

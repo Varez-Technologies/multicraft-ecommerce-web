@@ -82,7 +82,7 @@ export default function Hero({ onExploreClick, onOpenWallPreview }) {
               {/* Framed Artwork Container */}
               <div className="relative rounded-2xl overflow-hidden bg-[#141414] border-4 border-[#d4af37] p-2 shadow-2xl">
                 <img 
-                  src="/products/art_1.jpg" 
+                  src="/products/automotive_porsche_911_midnight.jpeg" 
                   alt="MultiCraft Hero Art" 
                   className="w-full h-[400px] sm:h-[460px] object-cover rounded-xl"
                   onError={(e) => {
@@ -96,12 +96,12 @@ export default function Hero({ onExploreClick, onOpenWallPreview }) {
                     <span className="text-[10px] uppercase font-bold tracking-wider text-[#d4af37]">
                       Featured Masterpiece
                     </span>
-                    <h3 className="text-sm font-bold text-white">Porsche 911 GT3 Track Neon</h3>
-                    <p className="text-xs text-neutral-400">Available in A4, A3, A2, A1</p>
+                    <h3 className="text-sm font-bold text-white">Porsche 911 Midnight Track</h3>
+                    <p className="text-xs text-neutral-400">Available in A4 & A3 Canvas</p>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs text-neutral-500 line-through">Rs. 2,599</span>
-                    <p className="text-base font-extrabold text-[#d4af37]">Rs. 1,999</p>
+                    <span className="text-xs text-neutral-500 line-through">Rs. 2,200</span>
+                    <p className="text-base font-extrabold text-[#d4af37]">Rs. 1,600</p>
                   </div>
                 </div>
 

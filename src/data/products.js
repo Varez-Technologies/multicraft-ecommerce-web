@@ -1,191 +1,253 @@
 export const initialProducts = [
+  // =================== AUTOMOTIVE =================== //
   {
     id: 1,
-    title: "Porsche 911 GT3 RS Neon Track",
+    title: "Porsche Cayman 718 (Set of 3)",
     category: "Automotive",
-    basePrice: 1999,
-    image: "/products/art_1.jpg",
-    badge: "Best Seller",
+    basePrice: 3700,
+    a3Price: 4500,
+    image: "/products/automotive_cayman_set_of_3.jpeg",
+    badge: "Set of 3",
     featured: true,
-    description: "High-definition motorsport aesthetic featuring the iconic Porsche 911 in dynamic track lighting. Museum quality print."
+    description: "Premium triptych gallery set showcasing the sleek Porsche Cayman 718 with dynamic track lighting and aggressive styling."
   },
   {
     id: 2,
-    title: "Dream Plan Do Repeat - Minimalist Hustle",
-    category: "Motivational",
-    basePrice: 1799,
-    image: "/products/art_2.jpg",
+    title: "Dream Drive Supercar Aesthetic",
+    category: "Automotive",
+    basePrice: 1600,
+    a3Price: 1900,
+    image: "/products/automotive_dream_drive.jpeg",
     badge: "Trending",
     featured: true,
-    description: "Inspiring clean typographic art engineered to keep you focused on your ambition every single day."
+    description: "Atmospheric dusk highway drive aesthetic engineered to keep you focused on your automotive ambition."
   },
   {
     id: 3,
-    title: "Mirza Ghalib - Ishq Par Zor Nahin",
-    category: "Urdu Poetry",
-    basePrice: 2199,
-    image: "/products/art_3.jpg",
-    badge: "Heritage",
-    featured: true,
-    description: "Exquisite Urdu calligraphy capturing timeless poetic expression. Crafted on textured fine-art canvas."
+    title: "Ducati Superbike Panigale Power",
+    category: "Automotive",
+    basePrice: 1600,
+    a3Price: 1900,
+    image: "/products/automotive_ducati.jpeg",
+    badge: "Popular",
+    featured: false,
+    description: "Raw Italian superbike adrenaline captured in sharp cinematic detail for motorcycle enthusiasts."
   },
   {
     id: 4,
-    title: "Cyberpunk Gamer Battlestation Glitch",
-    category: "Gaming",
-    basePrice: 1899,
-    image: "/products/art_4.jpg",
-    badge: "New Drop",
+    title: "Porsche 911 Heritage Classic",
+    category: "Automotive",
+    basePrice: 1500,
+    a3Price: 1800,
+    image: "/products/automotive_porsche_911_classic.jpeg",
+    badge: "Best Seller",
     featured: true,
-    description: "Vibrant neon cyberpunk aesthetic with futuristic glowing elements for the ultimate modern gaming setup."
+    description: "Timeless silhouette of the iconic Porsche 911 in monochromatic luxury studio lighting."
   },
   {
     id: 5,
-    title: "G-Wagon Matte Black Powerhouse",
+    title: "Porsche 911 Midnight Track Edition",
     category: "Automotive",
-    basePrice: 2299,
-    image: "/products/art_5.jpg",
-    badge: "Popular",
-    featured: true,
-    description: "Bold monochromatic aesthetic showcasing the raw luxury and dominance of the Mercedes-AMG G63."
+    basePrice: 1600,
+    a3Price: 1900,
+    image: "/products/automotive_porsche_911_midnight.jpeg",
+    badge: "Hot Drop",
+    featured: false,
+    description: "Aggressive low-angle Porsche 911 with glowing tail-lights and asphalt reflections."
   },
+
+  // =================== CALLIGRAPHY =================== //
   {
     id: 6,
-    title: "Good Things Take Time - Golden Hour",
-    category: "Motivational",
-    basePrice: 1699,
-    image: "/products/art_6.jpg",
-    badge: "Classic",
-    featured: false,
-    description: "Subtle reminder of patience and mastery. Warm tones and modern layout designed for mindful living."
+    title: "Abstract Luxury Calligraphy (Set of 3)",
+    category: "Calligraphy",
+    basePrice: 3600,
+    a3Price: 4300,
+    image: "/products/calligraphy_abstract_art.jpeg",
+    badge: "Set of 3",
+    featured: true,
+    description: "Stunning 3-piece abstract calligraphy gallery set featuring rich gold texture and fluid contemporary strokes."
   },
   {
     id: 7,
-    title: "Jaun Elia - Shayad Khamoshi Mein",
-    category: "Urdu Poetry",
-    basePrice: 2099,
-    image: "/products/art_7.jpg",
-    badge: "Exclusive",
-    featured: true,
-    description: "Deep, soulful typography honoring the legendary poet Jaun Elia in luxury gold foil and black canvas."
+    title: "Boho Minimalist Calligraphy",
+    category: "Calligraphy",
+    basePrice: 1600,
+    a3Price: 1800,
+    image: "/products/calligraphy_boho_minimalist.jpeg",
+    badge: "New Arrival",
+    featured: false,
+    description: "Clean aesthetic fusion of warm neutral tones and minimalist fluid lettering for contemporary interior spaces."
   },
+
+  // =================== GAMING =================== //
   {
     id: 8,
-    title: "Retro Arcade 1989 Neon Synthwave",
+    title: "Cinematic Black & Gold Gaming Gallery (Set)",
     category: "Gaming",
-    basePrice: 1999,
-    image: "/products/art_8.jpg",
-    badge: "Trending",
-    featured: false,
-    description: "Nostalgic 80s arcade vibe with glowing purple and cyan accents, perfect for game rooms and workspaces."
+    basePrice: 3800,
+    a3Price: 4700,
+    image: "/products/gaming_cinematic_black_gold.png",
+    badge: "Gallery Set",
+    featured: true,
+    description: "Ultimate luxury battlestation aesthetic with deep black matte and metallic gold console & controller artwork."
   },
   {
     id: 9,
-    title: "BMW M Power Turbo Velocity",
-    category: "Automotive",
-    basePrice: 2199,
-    image: "/products/art_9.jpg",
-    badge: "Hot",
+    title: "Level Up Modern Gamer Neon",
+    category: "Gaming",
+    basePrice: 1500,
+    a3Price: 1800,
+    image: "/products/gaming_level_up.jpeg",
+    badge: "Popular",
     featured: false,
-    description: "Capturing peak Bavarian performance in striking cinematic perspective with signature M colors."
+    description: "Crisp typography and arcade controller graphics designed for gaming desks and creative studios."
   },
   {
     id: 10,
-    title: "Hustle in Silence - Lion Stare",
-    category: "Motivational",
-    basePrice: 2399,
-    image: "/products/art_10.jpg",
-    badge: "Top Rated",
+    title: "Luxury Trading Charts Living Room Wall Art",
+    category: "Gaming",
+    basePrice: 3700,
+    a3Price: 4800,
+    image: "/products/gaming_luxury_trading_charts.png",
+    badge: "Trader Wall",
     featured: true,
-    description: "Fierce predator focus embodying relentless discipline and quiet strength on matte black background."
+    description: "High-roller candlesticks and financial market charts engineered for home trading offices and crypto rooms."
   },
   {
     id: 11,
-    title: "Faiz Ahmed Faiz - Bol Ke Lab Azaad Hain",
-    category: "Urdu Poetry",
-    basePrice: 2299,
-    image: "/products/art_11.jpg",
-    badge: "Masterpiece",
+    title: "XOXO Game On (Set of 3)",
+    category: "Gaming",
+    basePrice: 3700,
+    a3Price: 4400,
+    image: "/products/gaming_xoxo_game_on_set_of_3.jpeg",
+    badge: "Set of 3",
     featured: false,
-    description: "Revolutionary poetic words beautifully woven into intricate Nastaliq calligraphy."
+    description: "Three-piece iconic PlayStation symbols & arcade glyphs in vibrant glowing neon aesthetic."
   },
+
+  // =================== ISLAMIC =================== //
   {
     id: 12,
-    title: "Level Up - Pixel Legend Minimal",
-    category: "Gaming",
-    basePrice: 1799,
-    image: "/products/art_12.jpg",
-    badge: "Popular",
-    featured: false,
-    description: "Clean retro-inspired gaming art for collectors, streamers, and passionate enthusiasts."
+    title: "Luxurious MultiCraft Islamic Calligraphy",
+    category: "Islamic",
+    basePrice: 3600,
+    a3Price: 4200,
+    image: "/products/islamic_luxurious_calligraphy.png",
+    badge: "Masterpiece",
+    featured: true,
+    description: "Sacred verses rendered in intricate royal gold leaf calligraphy with textured museum-grade canvas finish."
   },
   {
     id: 13,
-    title: "Supra MK4 Twin Turbo Smoke",
-    category: "Automotive",
-    basePrice: 2299,
-    image: "/products/art_13.jpg",
-    badge: "JDM Legend",
-    featured: false,
-    description: "The crown jewel of Japanese tuner culture. Detailed engine and aero styling in high contrast."
+    title: "Qurani Ayat Sacred Wall Art",
+    category: "Islamic",
+    basePrice: 1500,
+    a3Price: 1800,
+    image: "/products/islamic_qurani_ayat.jpeg",
+    badge: "Best Seller",
+    featured: true,
+    description: "Soul-stirring sacred Quranic calligraphy bringing serenity, peace, and spiritual barakah to your home."
   },
   {
     id: 14,
-    title: "Never Settle - Obsidian Architecture",
-    category: "Motivational",
-    basePrice: 1899,
-    image: "/products/art_14.jpg",
-    badge: "New",
-    featured: false,
-    description: "Geometric architectural lines paired with bold mindset statement for modern offices."
+    title: "Tawakkal • Sabr • Shukr (Set of 3)",
+    category: "Islamic",
+    basePrice: 3600,
+    a3Price: 4200,
+    image: "/products/islamic_tawakkal_sabr_shukr_set_of_3.jpeg",
+    badge: "Set of 3",
+    featured: true,
+    description: "Timeless 3-piece reminder of Faith, Patience, and Gratitude in elegant minimal Islamic typography."
   },
+
+  // =================== MOTIVATIONAL =================== //
   {
     id: 15,
-    title: "Allama Iqbal - Khudi Ko Kar Buland",
-    category: "Urdu Poetry",
-    basePrice: 2499,
-    image: "/products/art_15.jpg",
-    badge: "Bestseller",
+    title: "Discipline Over Motivation",
+    category: "Motivational",
+    basePrice: 1500,
+    a3Price: 1800,
+    image: "/products/motivational_discipline.jpeg",
+    badge: "Mindset",
     featured: true,
-    description: "The timeless message of self-realization and destiny rendered with royal golden borders."
+    description: "Bold reminder that consistency and discipline build empires when motivation fades away."
   },
   {
     id: 16,
-    title: "DualShock Neon Drift Aesthetic",
-    category: "Gaming",
-    basePrice: 1899,
-    image: "/products/art_16.jpg",
-    badge: "Gamer Choice",
+    title: "Dream, Believe, Achieve Wall Art",
+    category: "Motivational",
+    basePrice: 1700,
+    a3Price: 1900,
+    image: "/products/motivational_dream_believe_achieve.png",
+    badge: "Trending",
     featured: false,
-    description: "Glowing controller artwork with ambient light leak effect, created for modern tech desk spaces."
+    description: "Inspirational three-pillar typography engineered for daily focus in workspaces and study rooms."
   },
   {
     id: 17,
-    title: "Lamborghini Huracan Dark Matte",
-    category: "Automotive",
-    basePrice: 2499,
-    image: "/products/art_17.jpg",
-    badge: "Supercar",
-    featured: false,
-    description: "Aggressive angular supercar styling under spotlight illumination with premium depth."
+    title: "Never Give Up - Grit & Glory",
+    category: "Motivational",
+    basePrice: 1800,
+    a3Price: 2000,
+    image: "/products/motivational_never_give_up.jpeg",
+    badge: "Best Seller",
+    featured: true,
+    description: "Powerful aesthetic typography representing resilience, determination, and relentless ambition."
   },
   {
     id: 18,
-    title: "Stay Hungry Stay Foolish Minimal",
+    title: "No Risk, No Story",
     category: "Motivational",
-    basePrice: 1699,
-    image: "/products/art_18.jpg",
-    badge: "Iconic",
+    basePrice: 1500,
+    a3Price: 1800,
+    image: "/products/motivational_no_risk_no_story.png",
+    badge: "Hustle",
     featured: false,
-    description: "Timeless wisdom presented with crisp typography and balanced white space for clarity of mind."
+    description: "A statement piece for entrepreneurs, traders, and creators who dare to take bold steps."
+  },
+  {
+    id: 19,
+    title: "Cristiano Ronaldo - Believe Greatness",
+    category: "Motivational",
+    basePrice: 1600,
+    a3Price: 1900,
+    image: "/products/motivational_ronaldo_believe.jpeg",
+    badge: "Iconic",
+    featured: true,
+    description: "Legendary CR7 celebratory pose capturing world-class dedication, work ethic, and relentless self-belief."
+  },
+
+  // =================== URDU POETRY =================== //
+  {
+    id: 20,
+    title: "Illuminated Floral Urdu Wall Art",
+    category: "Urdu Poetry",
+    basePrice: 1700,
+    a3Price: 1900,
+    image: "/products/urdu_poetry_illuminated_floral.png",
+    badge: "Heritage",
+    featured: true,
+    description: "Exquisite botanical ornamentation paired with profound Urdu poetic expression in rich warm tones."
+  },
+  {
+    id: 21,
+    title: "Premium Gold Urdu Calligraphy Wall Art",
+    category: "Urdu Poetry",
+    basePrice: 1500,
+    a3Price: 1800,
+    image: "/products/urdu_poetry_premium_gold_calligraphy.png",
+    badge: "Classic",
+    featured: true,
+    description: "Deep, soulful typography honoring classic Urdu literature in luxury gold foil and black canvas."
   }
 ];
 
 export const sizeOptions = [
   { id: 'a4', label: 'A4 (8.3 x 11.7 in)', priceDelta: 0, tag: 'Compact' },
-  { id: 'a3', label: 'A3 (11.7 x 16.5 in)', priceDelta: 600, tag: 'Most Popular' },
-  { id: 'a2', label: 'A2 (16.5 x 23.4 in)', priceDelta: 1300, tag: 'Statement' },
-  { id: 'a1', label: 'A1 (23.4 x 33.1 in)', priceDelta: 2400, tag: 'Gallery Large' }
+  { id: 'a3', label: 'A3 (11.7 x 16.5 in)', priceDelta: 300, tag: 'Most Popular' },
+  { id: 'a2', label: 'A2 (16.5 x 23.4 in)', priceDelta: 900, tag: 'Statement' },
+  { id: 'a1', label: 'A1 (23.4 x 33.1 in)', priceDelta: 1800, tag: 'Gallery Large' }
 ];
 
 export const frameOptions = [
@@ -215,4 +277,12 @@ export const frameOptions = [
   }
 ];
 
-export const categoriesList = ["All", "Motivational", "Automotive", "Gaming", "Urdu Poetry"];
+export const categoriesList = [
+  "All", 
+  "Automotive", 
+  "Calligraphy", 
+  "Gaming", 
+  "Islamic", 
+  "Motivational", 
+  "Urdu Poetry"
+];
